@@ -1,0 +1,106 @@
+{% extends "9xt3/layout.html" %}
+
+{% block body %}
+{% if flag %}
+<div class="container-fluid p-5" style="background-color: grey; height: 100vh;">
+    <p class="h6 text-black pl-5">
+    <h1> Sorry, Restricted :(</h1>
+    <h6> Login or register to access this page </h6>
+    </p>
+</div>
+{% else %}
+<div class="container-fluid pl-5 pt-5 pr-5">
+{% if msg %}
+    <h4>{{ msg }}</h4>
+{% endif %}
+{% if msg %}
+    <h6>{{ message }}</h6>
+{% endif %}
+</div>
+<br><br><br><br>
+<div class="container mt-5 d-flex flex-column align-items-center">
+    <form id="verifyForm" action="/verify" method="post" class="d-flex flex-column align-items-center w-100">
+        <div class="join-container p-4 rounded border border-dark bg-white d-flex flex-column align-items-center"
+             style="width: 400px; min-height: 500px; border: 1.5px solid #000 border-radius: 25px">
+            <br><br><br><br><div class="info text-center"><h4>Verification Code</h4></div><br>
+            <div class="code-boxes d-flex gap-1 mb-3" style="justify-content: center;">
+                {% for i in range(6) %}
+                <input type="text" maxlength="1" class="code-box form-control text-center" id="box{{i+1}}" />
+                {% endfor %}
+            </div>
+            <input type="hidden" name="code" id="combinedCode" />
+            <br>
+            <button type="submit" class="btn btn-lg btn-outline-dark col-6 mx-auto">
+                Verify
+            </button>
+            <br><br>
+            <div style="text-align: left; width: 100%; padding-left: 20px;">
+                <p class="h6 text-black">
+                    - Code has been sent to the given email. <br>
+                    - Expires in 10 minutes. <br>
+                    - Please check spam if not receiving code. <br>
+                </p>
+            </div>
+        </div>
+    </form>
+    <div  class="container-fluid p-5">
+    <p class="h6 text-black pl-5" style="text-indent: 3em;">
+            <a href="/verify">Resend Code</a> <br>
+    </p>
+    <p class="h6 text-black pl-5" style="text-indent: 3em;">
+            <a href="/cemailv">Change Email</a> <br>
+    </p>
+    <p class="h6 text-black pl-5" style="text-indent: 3em;">
+            <a href="/sreg">Stop Registeration</a> <br>
+    </p>
+    </div>
+</div>
+
+
+<style>
+.code-boxes input.code-box {
+    width: 55px;
+    height: 70px;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 15px;
+    border:1px solid #000;
+    text-transform: uppercase;
+}
+</style>
+
+<script>
+const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const boxes = Array.from(document.querySelectorAll('.code-box'));
+
+boxes.forEach((box, idx) => {
+    box.addEventListener('input', () => {
+        let val = box.value.toUpperCase();
+        if (!ALPHABET.includes(val)) {
+            box.value = '';
+            return;
+        }
+        box.value = val;
+        if (idx < boxes.length - 1 && val) boxes[idx + 1].focus();
+    });
+    
+    box.addEventListener('keydown', (e) => {
+            if (e.key === "Backspace" && !box.value && idx > 0) {
+                e.preventDefault();
+                boxes[idx - 1].focus();
+                boxes[idx - 1].value = '';
+            }
+        });
+});
+
+document.getElementById('verifyForm').addEventListener('submit', (e) => {
+    const combined = boxes.map(b => b.value).join('');
+    if (combined.length !== 6) {
+        e.preventDefault();
+        return;
+    }
+    document.getElementById('combinedCode').value = combined;
+});
+</script>
+{% endif %}
+{% endblock %}

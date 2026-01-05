@@ -1,0 +1,45 @@
+{% extends "9xt3/layout.html" %}
+
+{% block body %}
+    <div  class="container-fluid p-5">
+    <p class="h6 text-black pl-5">
+        <h5>Hey, let's play 9x9 Tic-Tac-Toe.</h5>
+        For rules, click <a href="/rules">here</a>.<br>
+        The maker of the game plays with the icon 'O'<br>
+        If you exited the game by mistake, re-enter the code to join the game. <br>
+        Remember: The game is deleted if it is inactive for more than 72hrs<br><br>
+        {% if not user %} <b>Have to create an account or login to play.</b>{% endif %}
+    </p>
+    </div>
+    
+    {% if user %}
+    <div  class="d-grid gap-4 col-6 mx-auto container-fluid">
+        <form action="/join" method="get">
+        <button type="submit" class=" btn btn-lg  btn-outline-dark form-control" >
+               Join a Game
+        </button>
+        </form>
+        <form action="/make" method="get">
+        <button type="submit" class=" btn btn-lg  btn-outline-dark form-control">
+                Make a Game
+        </button>
+        </form>
+    </div>
+
+    {% else %}
+    <div  class="d-grid gap-4 col-6 mx-auto container-fluid">
+        <form action="/join" method="get">
+        <button type="submit" class=" btn btn-lg  btn-outline-dark form-control" disabled>
+               Join a Game
+        </button>
+        </form>
+        <form action="/make" method="get">
+        <button type="submit" class=" btn btn-lg  btn-outline-dark form-control" disabled>
+                Make a Game
+        </button>
+        </form>
+    </div>
+    {% endif %}
+{% endblock %}
+
+

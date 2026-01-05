@@ -1,0 +1,52 @@
+{% extends "9xt3/layout.html" %}
+
+{% block body %}
+    {% if not user %}
+    <div class="container-fluid p-5" style="background-color: grey; height: 100vh;">
+        <p class="h6 text-black pl-5">
+        <h1> Sorry, Restricted :(</h1>
+        <h6> It seems like you are not logged in. </h6>
+        </p>
+    </div>
+    {% else %}
+    <div class="container-fluid pl-5 pt-5 pr-5">
+    <h2>Profile</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+    
+    <br>
+    <div class="d-flex align-items-center justify-content-between">
+    <p class="h6 text-black pl-2">
+        Username: {{ user.username }}
+    </p>
+    <button onclick="window.location.href='/cusern'"  type="button"  class="btn btn btn-outline-dark col-3" >
+                Change username
+    </button>
+    </div>
+    <div class="d-flex align-items-center justify-content-between mt-2">
+    <p class="h6 text-black pl-2">
+        Email: {{ user.email }}
+    </p>
+    <button onclick="window.location.href='/cemail'"  type="button"  class="btn btn btn-outline-dark col-3">
+                Change email
+    </button>
+    </div>
+    <div class="d-flex align-items-center justify-content-between mt-2">
+    <p class="h6 text-black pl-2">
+        Password: ********
+    </p>
+    <button onclick="window.location.href='/cpwd'"  type="button"  class="btn btn btn-outline-dark col-3">
+                Change password
+    </button>
+    </div>
+    <br><br><br>
+    <div class ="w-100 d-flex justify-content-end mb-3">
+    <button type="button" onclick="window.location.href='/logout'" class="btn btn-outline-dark col-3">Logout</button>
+    &nbsp;
+    <button type="button" onclick="window.location.href='/delete'" class="btn btn-outline-danger col-3">Delete Account</button>
+    <div>
+    </div>
+{% endif %}
+{% endblock %}

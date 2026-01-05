@@ -1,0 +1,20 @@
+{% extends "9xt3/layout.html" %}
+
+{% block body %}
+    <div class="container-fluid p-5">
+    <p class="h6 text-black pl-5">
+        Hey, let's play 9x9 Tic-Tac-Toe.<br><br>
+        Rules are simple:<br>
+            - There is a big board with 9 small boards in each box.<br>
+            - Win the small board to win and mark the box yours<br>
+            - The first move you can play in any board, but then the opponent sends you to specific boards.<br>
+            - For example, if player 1 plays in the bottom left corner of a small board, player 2 must play their move in bottom left corner of the big board<br>
+            - If small board is marked by a player or tied/out-of-moves, then being send to that box gives you chance to play anywhere.<br>
+            <br>
+        For a better discribe rules, please refer to google.<br>
+        To play please go to <a href="/">home</a> or click 'Okie' on the top left corner.<br><br>
+    </p>
+    </div>
+{% endblock %}
+
+
