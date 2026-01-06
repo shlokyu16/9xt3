@@ -17,6 +17,7 @@ asttokens==3.0.0
 async-lru==2.0.5
 asyncio==3.4.3
 attrs==25.3.0
+audioop-lts==0.2.2
 babel==2.17.0
 bark==0.1.5
 bcrypt==4.0.1
