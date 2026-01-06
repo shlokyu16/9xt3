@@ -543,13 +543,8 @@ async def make_move(data: dict, request: Request, db: Session = Depends(get_db))
         "winner": board.winner,
     }
     
-    
 @app.exception_handler(404)
 async def custom_404_handler(request, __):
     return templates.TemplateResponse("9xt3/404.html", {"request": request})
 
 
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
