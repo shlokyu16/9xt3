@@ -21,7 +21,7 @@ from email.message import EmailMessage
 
 # Config
 SECRET_KEY = "0TMN0vfgRobMve_TQl7GRspHSCyDltQDaLnE7MlZuZw"
-DATABASE_URL = "sqlite:///./db.sqlite3"
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL",  "sqlite:///./db.sqlite3")
 
 # App Init
 app = FastAPI()
@@ -31,7 +31,8 @@ templates = Jinja2Templates(directory="templates")
 
 # DB Setup
 Base = declarative_base()
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+connect_args = {"check_same_thread": False} if SQLALCHEMY_DATABASE_URL.startswith("sqlite") else {}
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args=connect_args)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Models
